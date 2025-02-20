@@ -22,7 +22,7 @@ const Job = () => {
                     <h1 className='font-medium text-lg'>
                         Company Name
                     </h1>
-                    <p className='text-sm text-gray-600'>India</p>
+                    <p className='text-sm text-gray-600'>Canada</p>
                 </div>
             </div>
 
