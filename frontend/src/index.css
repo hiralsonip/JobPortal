@@ -142,3 +142,79 @@ button:focus-visible {
     @apply bg-background text-foreground;
   }
 } */
+
+
+
+/* @layer base {}
+
+
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+} */
+
+
+
+
+
+
+/* @layer utilities {
+  .border-border {
+    border-color: theme('colors.border');
+  }
+} */
+
+/* @layer base {}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+} */
+
+/* @layer base {
+  * {
+    @apply border-gray-300 outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+} */
+
+
+
+/* @layer base {}
+
+
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+} */
+
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .border-border {
+    border-color: theme('colors.border');
+  }
+}
