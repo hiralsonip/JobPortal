@@ -50,34 +50,36 @@ const Navbar = () => {
                     {
                         !user ? (
                             <div className='flex items-center gap-2'>
-                                <Link to='/login'>
-                                    <Button variant='outline'>
-                                        Login
-                                    </Button>
-                                </Link>
-
-                                <Link to='/signup'>
-                                    <Button className='bg-[#6A38C2] hover:bg-[#551eb3]'>
-                                        Signup
-                                    </Button>
-                                </Link>
-
+                                <Link to='/login'><Button variant='outline'>Login</Button></Link>
+                                <Link to='/signup'><Button className='bg-[#6A38C2] hover:bg-[#551eb3]'> Signup</Button></Link>
                             </div>
                         ) : (
                             <Popover>
                                 <PopoverTrigger asChild>
-                                    <Avatar className='cursor-pointer'>
-                                        <AvatarImage src={user.profile.profilePhoto} alt="@shadcn" />
-                                    </Avatar>
+                                    {
+                                        (user?.profile?.profilePhoto)
+                                            ? <Avatar className='cursor-pointer'>
+                                                <AvatarImage src={user?.profile?.profilePhoto} alt="@shadcn" />
+                                            </Avatar>
+                                            : <Avatar className='cursor-pointer'>
+                                                <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                                            </Avatar>
+                                    }
                                 </PopoverTrigger>
                                 <PopoverContent className='w-80'>
                                     <div className='flex gap-4 space-y-2'>
-                                        <Avatar className='cursor-pointer'>
-                                            <AvatarImage src={user.profile.profilePhoto} alt="@shadcn" />
-                                        </Avatar>
+                                        {
+                                            (user?.profile?.profilePhoto)
+                                                ? <Avatar className='cursor-pointer'>
+                                                    <AvatarImage src={user?.profile?.profilePhoto} alt="@shadcn" />
+                                                </Avatar>
+                                                : <Avatar className='cursor-pointer'>
+                                                    <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                                                </Avatar>
+                                        }
                                         <div>
-                                            <h4 className='font-medium'>{user.fullname}</h4>
-                                            <p className='text-sm text-muted-foreground'>This is the introduction</p>
+                                            <h4 className='font-medium'>{user?.fullname}</h4>
+                                            <p className='text-sm text-muted-foreground'>{user?.profile?.bio}</p>
                                         </div>
                                     </div>
 
