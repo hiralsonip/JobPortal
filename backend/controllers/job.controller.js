@@ -102,7 +102,7 @@ export const getJobByUserId = async (req, res) => {
     try {
 
         const userId = req.id;
-        const jobs = await Job.find({ created_by: userId });
+        const jobs = await Job.find({ created_by: userId }).populate({ path: "company" });
 
         if (!jobs) {
             return res.status(400).json({
