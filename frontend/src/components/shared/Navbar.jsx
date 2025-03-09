@@ -76,7 +76,7 @@ const Navbar = () => {
                                             </Avatar>
                                     }
                                 </PopoverTrigger>
-                                <PopoverContent className='w-80'>
+                                <PopoverContent className='w-80 bg-white'>
                                     <div className='flex gap-4 space-y-2'>
                                         {
                                             (user?.profile?.profilePhoto)

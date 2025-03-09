@@ -25,7 +25,7 @@ const AdminJobs = () => {
             <div className='max-w-6xl mx-auto my-10'>
                 <div className='flex items-center justify-between my-5'>
                     <Input className="w-fit" placeholder="Filter By Name" onChange={(e) => setInput(e.target.value)} />
-                    <Button variant="outline" className="" onClick={() => navigate("/admin/companies/create")}>New Jobs</Button>
+                    <Button variant="outline" className="" onClick={() => navigate("/admin/job/create")}>New Jobs</Button>
                 </div>
                 <AdminJobsTable />
             </div>
