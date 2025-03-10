@@ -8,6 +8,7 @@ import { Label } from './ui/label'
 import AppliedJobTable from './AppliedJobTable'
 import UpdateProfileDialog from './UpdateProfileDialog'
 import { useSelector } from 'react-redux'
+import useGetAppliedJobs from '@/hooks/useGetAppliedJobs'
 
 const skills = ["HTML", "CSS", "JavaScript", "PHP", "React.js", "Node.js"];
 const isResume = true;
@@ -16,6 +17,7 @@ const Profile = () => {
 
     const { user } = useSelector(store => store.auth);
     const [open, setOpen] = useState(false)
+    useGetAppliedJobs();
 
     return (
         <div>
@@ -56,7 +58,7 @@ const Profile = () => {
                     <h1>Skills</h1>
                     <div className='flex items-center gap-1'>
                         {
-                            (user?.profile?.skilss && user?.profile?.skilss.length > 0) ? user?.profile?.skilss.map((item, index) => <Badge key={index} variant="outline">{item}</Badge>) : <p>No Skills Found</p>
+                            (user?.profile?.skills && user?.profile?.skills.length > 0) ? user?.profile?.skills.map((item, index) => <Badge key={index} variant="outline">{item}</Badge>) : <p>No Skills Found</p>
                         }
                     </div>
                 </div>

@@ -3,11 +3,27 @@ import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, Tabl
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { MoreHorizontal } from 'lucide-react';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
+import { APPLICATION_API_END_POINT } from '@/util/constant';
+import { toast } from 'sonner';
 
 const shortListingStatus = ["Accepted", "Rejected"];
 const ApplicantsTable = () => {
 
     const { allApplicants } = useSelector(store => store.application);
+
+    const statusHandler = async (id, status) => {
+        try {
+            const res = await axios.post(`${APPLICATION_API_END_POINT}/status/${id}/update`, { status }, { withCredentials: true });
+            if (res.data.success) {
+                toast.success(res.data.message);
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error(error.response.data.message);
+        }
+    }
+
     return (
         <div>
             <Table>
@@ -25,7 +41,7 @@ const ApplicantsTable = () => {
                 <TableBody>
                     {
                         allApplicants && allApplicants?.map((item) => (
-                            <tr>
+                            <tr key={item?._id}>
                                 <TableCell>{item?.applicant?.fullname}</TableCell>
                                 <TableCell>{item?.applicant?.email}</TableCell>
                                 <TableCell>{item?.applicant?.phonenumber}</TableCell>
@@ -45,7 +61,9 @@ const ApplicantsTable = () => {
                                             {
                                                 shortListingStatus.map((status, index) => {
                                                     return (
-                                                        <div key={index} className='flex w-fit items-center my-2 cursor-pointer'> <span>{status}</span> </div>
+                                                        <div key={index} className='flex w-fit items-center my-2 cursor-pointer' onClick={() => statusHandler(item?._id, status)}>
+                                                            <span>{status}</span>
+                                                        </div>
                                                     )
                                                 })
                                             }

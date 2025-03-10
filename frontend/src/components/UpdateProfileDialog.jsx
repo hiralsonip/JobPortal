@@ -25,6 +25,8 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
         file: user?.profile?.resume
     });
 
+    console.log("SKILLS - ", input);
+
     const changeEventHandler = (e) => {
         setInput({ ...input, [e.target.name]: e.target.value })
     }

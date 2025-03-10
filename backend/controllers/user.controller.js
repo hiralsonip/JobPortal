@@ -161,7 +161,7 @@ export const updateProfile = async (req, res) => {
         if (email) user.email = email;
         if (phonenumber) user.phonenumber = phonenumber;
         if (bio) user.profile.bio = bio;
-        if (skills) user.profile.skilss = skillsArray;
+        if (skills) user.profile.skills = skillsArray;
         if (cloudResponse) {
             user.profile.resume = cloudResponse.secure_url // Save the cloudinary URL
             user.profile.resumeOriginalName = file.originalname
