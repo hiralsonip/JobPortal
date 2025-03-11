@@ -29,7 +29,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 const corsOptions = {
-    origin: 'http://localhost:5173', // allow for specific website
+    // origin: 'http://localhost:5173', // allow for specific website
+    origin: "https://jobportal-aun3.onrender.com",
     // origin: '*', // for devlopment purpose only
     credentials: true
 }
