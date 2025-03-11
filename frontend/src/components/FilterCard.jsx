@@ -49,7 +49,7 @@ const FilterCard = () => {
                                 data.array.map((item, innerIndex) => {
                                     const itemID = `r${index}-${innerIndex}`;
                                     return (
-                                        <div className='flex items-center space-x-2 my-2'>
+                                        <div className='flex items-center space-x-2 my-2' key={itemID}>
                                             <RadioGroupItem value={item} id={itemID} />
                                             <Label htmlFor={itemID}>{item}</Label>
                                         </div>

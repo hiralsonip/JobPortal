@@ -21,7 +21,7 @@ const Jobs = () => {
                     job.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
                     job.location.toLowerCase().includes(searchQuery.toLowerCase())
             });
-            setFilterJobs(filteredJobs)
+            setFilterJobs(filteredJobs);
         } else {
             setFilterJobs(allJobs)
         }
