@@ -41,7 +41,6 @@ const PostJob = () => {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        console.log("Input - ", input);
         try {
             setLoading(true);
             const res = await axios.post(`${JOB_API_END_POINT}/post`, input,

@@ -15,7 +15,8 @@ function Home() {
     const { searchQuery } = useSelector(store => store.job)
     useEffect(() => {
         dispatch(setSearchQuery(''))
-    }, [dispatch])
+    }, [dispatch]);
+
     useGetAllJobs();
 
     const { user } = useSelector(store => store.auth);
