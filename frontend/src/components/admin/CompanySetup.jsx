@@ -65,7 +65,6 @@ const CompanySetup = () => {
                     withCredentials: true
                 }
             )
-            console.log("RES - ", res.data);
             if (res.data.success) {
                 toast.success(res.data.message);
                 navigate("/admin/companies")
