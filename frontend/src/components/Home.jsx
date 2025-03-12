@@ -30,6 +30,7 @@ function Home() {
 
     return (
         <div>
+            <h1>Hiral</h1>
             <Navbar />
             <HeroSection />
             <CategoryCarousel />
