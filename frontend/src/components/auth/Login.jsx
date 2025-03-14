@@ -59,7 +59,7 @@ function Login() {
             <Navbar />
 
             <div className='flex items-center justify-center mx-auto'>
-                <form onSubmit={submitHandler} className='w-1/2 border border-gray-200 rounded-md p-4 my-10'>
+                <form onSubmit={submitHandler} className='max-w-5xl w-full md:w-1/2 lg:w-1/3 sm:w-full mx-5 border border-gray-200 rounded-md p-4 my-10'>
                     <h1 className='font-bold text-xl mb-5'>Login</h1>
 
                     {/* Email */}
@@ -67,10 +67,11 @@ function Login() {
                         <Label>Email</Label>
                         <Input
                             type="email"
-                            placeholder="hiral@gmail.com"
+                            placeholder="john@gmail.com"
                             value={input.email}
                             name="email"
                             onChange={changeEventHandler}
+                            required
                         />
                     </div>
 
@@ -81,7 +82,8 @@ function Login() {
                             placeholder="Password"
                             value={input.password}
                             name="password"
-                            onChange={changeEventHandler} />
+                            onChange={changeEventHandler}
+                            required />
                     </div>
 
                     <div className='flex items-center justify-between'>

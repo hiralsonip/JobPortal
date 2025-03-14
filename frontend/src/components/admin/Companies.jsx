@@ -23,6 +23,9 @@ const Companies = () => {
         <>
             <Navbar />
             <div className='max-w-6xl mx-auto my-10'>
+                <div className='max-w-7xl mx-auto'>
+                    <h1 className='font-bold text-xl my-5'>Companies</h1>
+                </div>
                 <div className='flex items-center justify-between my-5'>
                     <Input className="w-fit" placeholder="Filter By Name" onChange={(e) => setInput(e.target.value)} />
                     <Button variant="outline" className="" onClick={() => navigate("/admin/companies/create")}>New Company</Button>

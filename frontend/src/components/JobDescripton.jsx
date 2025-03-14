@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Badge } from './ui/badge'
 import { Button } from './ui/button'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { setSingleJob } from '@/redux/jobSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
@@ -17,8 +17,15 @@ const JobDescripton = () => {
     const { user } = useSelector(store => store.auth)
     const isInitiallyApplied = singleJob?.applications?.some(application => application.applicant === user?._id) || false;
     const [isApplied, setIsApplied] = useState(isInitiallyApplied);
+    const navigate = useNavigate();
 
     const applyJobHandler = async () => {
+        if (!user) {
+            navigate("/login");
+            toast.error("Login to apply for a job")
+            return;
+        }
+
         try {
             const res = await axios.post(`${APPLICATION_API_END_POINT}/apply/${jobId}`, {}, { withCredentials: true });
             if (res.data.success) {
@@ -61,7 +68,7 @@ const JobDescripton = () => {
                 </div>
                 <Button
                     onClick={isApplied ? undefined : applyJobHandler}
-                    disbled={isApplied}
+                    disabled={isApplied}
                     variant="outline"
                     className={`rounded-lg text-white ${isApplied ? 'bg-gray-600 cursor-not-allowed' : 'bg-[#7209b7] hover:bg-[#5f32ad]'}`}>
                     {isApplied ? "Already Applied" : "Apply Now"}

@@ -15,11 +15,16 @@ const Jobs = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [])
+
+    useEffect(() => {
         if (searchQuery) {
             const filteredJobs = allJobs.filter((job) => {
                 return job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                     job.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    job.location.toLowerCase().includes(searchQuery.toLowerCase())
+                    job.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    job.jobType.toLowerCase().includes(searchQuery.toLowerCase())
             });
             setFilterJobs(filteredJobs);
         } else {
@@ -37,7 +42,7 @@ const Jobs = () => {
         <div>
             <Navbar />
             <div className='max-w-7xl mx-auto mt-5'>
-                <div className='flex gap-5'>
+                <div className='flex gap-5 flex-col md:flex-row'>
                     <div className='w-[20%]'>
                         <FilterCard />
                     </div>
@@ -46,7 +51,7 @@ const Jobs = () => {
                             ? <span> Job not found </span>
                             :
                             <div className='flex-1 h-[88vh] overflow-y-auto pb-5' >
-                                <div className='grid grid-cols-3 gap-4'>
+                                <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
                                     {filterJobs.map((job) =>
                                     (<motion.div
                                         key={job._id}
