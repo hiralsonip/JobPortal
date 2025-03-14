@@ -23,49 +23,51 @@ const CompaniesTable = () => {
     }, [companies, searchCompanyByName])
 
     return (
-        <div>
-            <Table>
-                <TableCaption>Your Registered Companies</TableCaption>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead>Logo</TableHead>
-                        <TableHead>Name</TableHead>
-                        <TableHead>Date</TableHead>
-                        <TableHead className="text-right">Action</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {
-                        filterCompany?.length <= 0
-                            ? <span>No registered companies found</span>
-                            : (filterCompany?.map((company) =>
-                            (<tr key={company._id}>
-                                <TableCell>
-                                    <Avatar>
+        <>
+            <div>
+                <Table>
+                    <TableCaption>Your Registered Companies</TableCaption>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead>Logo</TableHead>
+                            <TableHead>Name</TableHead>
+                            <TableHead>Date</TableHead>
+                            <TableHead className="text-right">Action</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {
+                            filterCompany?.length <= 0
+                                ? <span>No registered companies found</span>
+                                : (filterCompany?.map((company) =>
+                                (<tr key={company._id}>
+                                    <TableCell>
                                         <Avatar>
-                                            <AvatarImage src={company?.logo} />
+                                            <Avatar>
+                                                <AvatarImage src={company?.logo} />
+                                            </Avatar>
                                         </Avatar>
-                                    </Avatar>
-                                </TableCell>
-                                <TableCell>{company.name}</TableCell>
-                                <TableCell>{company.createdAt.split("T")[0]}</TableCell>
-                                <TableCell className="text-right cursor-pointer">
-                                    <Popover>
-                                        <PopoverTrigger><MoreHorizontal /></PopoverTrigger>
-                                        <PopoverContent className="w-32">
-                                            <div className='flex items-center gap-2 w-fit cursor-pointer' onClick={() => navigate(`/admin/companies/${company._id}`)}>
-                                                <Edit2 className='w-4' />
-                                                <span>Edit</span>
-                                            </div>
-                                        </PopoverContent>
-                                    </Popover>
-                                </TableCell>
-                            </tr>)
-                            ))
-                    }
-                </TableBody>
-            </Table>
-        </div >
+                                    </TableCell>
+                                    <TableCell>{company.name}</TableCell>
+                                    <TableCell>{company.createdAt.split("T")[0]}</TableCell>
+                                    <TableCell className="text-right cursor-pointer">
+                                        <Popover>
+                                            <PopoverTrigger><MoreHorizontal /></PopoverTrigger>
+                                            <PopoverContent className="w-32 bg-white">
+                                                <div className='flex items-center gap-2 w-fit cursor-pointer' onClick={() => navigate(`/admin/companies/${company._id}`)}>
+                                                    <Edit2 className='w-4' />
+                                                    <span>Edit</span>
+                                                </div>
+                                            </PopoverContent>
+                                        </Popover>
+                                    </TableCell>
+                                </tr>)
+                                ))
+                        }
+                    </TableBody>
+                </Table>
+            </div >
+        </>
     )
 }
 

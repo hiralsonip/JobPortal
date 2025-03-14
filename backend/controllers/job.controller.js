@@ -47,6 +47,7 @@ export const getAllJobs = async (req, res) => {
                 { title: { $regex: keyword, $options: "i" } },
                 { description: { $regex: keyword, $options: "i" } },
                 { location: { $regex: keyword, $options: "i" } },
+                { jobType: { $regex: keyword, $options: "i" } },
             ]
         }
         const jobs = await Job.find(query).populate({

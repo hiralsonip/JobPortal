@@ -3,13 +3,14 @@ import { RadioGroup, RadioGroupItem } from './ui/radio-group'
 import { Label } from './ui/label'
 import { useDispatch } from 'react-redux'
 import { setSearchQuery } from '@/redux/jobSlice'
+import { Button } from './ui/button'
 
 // Filter type - location, salary, industry
 
 const filterData = [
     {
         filterType: "Location",
-        array: ["Toronto", "Brampton", "North York", "Kitchner", "London"]
+        array: ["Toronto", "Brampton", "North York", "Kitchener", "London"]
     },
 
     {
@@ -18,8 +19,8 @@ const filterData = [
     },
 
     {
-        filterType: "Job Posting Time",
-        array: ["Today", "3 days", "1 week"]
+        filterType: "Job Type",
+        array: ["Full Time", "Part Time", "Temporary", "Contract"]
     }
 ]
 
@@ -33,14 +34,18 @@ const FilterCard = () => {
 
     useEffect(() => {
         dispatch(setSearchQuery(selectedValue));
-    }, [selectedValue])
+    }, [selectedValue]);
+
+    const removeFilter = () => {
+        setSelectedValue("");
+    }
 
     return (
         <div className='w-full bg-white p-3 rounded-md'>
             <h1 className='font-bold text-lg'> Filter Job </h1>
             <hr className='mt-3' />
 
-            <RadioGroup value={selectedValue} onValueChange={changeHandler}>
+            <RadioGroup value={selectedValue} onValueChange={changeHandler} className="flex flex-row justify-evenly w-screen md:flex-col lg:flex-col ">
                 {
                     filterData.map((data, index) => (
                         <div key={index}>
@@ -60,6 +65,8 @@ const FilterCard = () => {
                     ))
                 }
             </RadioGroup >
+
+            <Button variant="outline" onClick={removeFilter} className="mt-4">Remove Filter</Button>
         </div >
     )
 }

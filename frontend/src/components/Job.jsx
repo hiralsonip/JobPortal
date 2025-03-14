@@ -4,6 +4,7 @@ import { Bookmark } from 'lucide-react'
 import { Avatar, AvatarImage } from './ui/avatar'
 import { Badge } from './ui/badge'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'sonner'
 
 const Job = ({ job }) => {
 
@@ -16,14 +17,29 @@ const Job = ({ job }) => {
     }
 
     return (
-        <div className='p-5 rounded-md shadow-xl bg-white border-gray-300'>
+        <div className='p-5 rounded-md shadow-xl bg-white border-gray-300 hover:shadow-2xl'>
             <div className='flex items-center justify-between'>
                 <p className='text-gray-600 text-sm'> {daysAgo(job?.createdAt) === 0 ? "Today" : `${daysAgo(job?.createdAt)} days ago`}  </p>
                 <Button variant="outline" className="rounded-full" size="icon"><Bookmark /></Button>
             </div>
 
             <div className='flex items-center gap-2 my-2'>
-                <Button className="p-6" variant="outline" size="icon">
+                <Button className="p-6" variant="outline" size="icon"
+                    onClick={() => {
+                        const website = job?.company?.website;
+
+                        if (!website) {
+                            toast.error("Company website not available!");
+                            return;
+                        }
+
+                        try {
+                            new URL(website);
+                            window.open(website, "_blank", "noopener,noreferrer");
+                        } catch (error) {
+                            navigate("/not-found");
+                        }
+                    }}>
                     <Avatar>
                         <AvatarImage src={job?.company?.logo} />
                     </Avatar>
