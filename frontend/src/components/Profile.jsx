@@ -22,7 +22,7 @@ const Profile = () => {
     return (
         <div>
             <Navbar />
-            <div className='max-w-4xl mx-auto bg-white border border-gray-200 rounded-2xl my-5 p-8'>
+            <div className='max-w-4xl w-full mx-auto bg-white border border-gray-200 rounded-2xl my-5 p-8'>
 
                 {/* Top box - Profile image - bio - edit icon */}
                 <div className='flex justify-between'>
@@ -56,7 +56,7 @@ const Profile = () => {
                 {/* Skills */}
                 <div className='my-5'>
                     <h1>Skills</h1>
-                    <div className='flex items-center gap-1'>
+                    <div className='flex flex-wrap items-center gap-1'>
                         {
                             (user?.profile?.skills && user?.profile?.skills.length > 0) ? user?.profile?.skills.map((item, index) => <Badge key={index} variant="outline">{item}</Badge>) : <p>No Skills Found</p>
                         }
@@ -76,7 +76,7 @@ const Profile = () => {
             </div>
 
             {/* Applied job displayed in table */}
-            <div className='max-w-4xl mx-auto bg-white rounded-2xl'>
+            <div className='max-w-4xl w-screen mx-auto bg-white rounded-2xl'>
                 <h1 className='font-bold text-lg my-5'>Applied Job</h1>
                 <AppliedJobTable />
             </div>

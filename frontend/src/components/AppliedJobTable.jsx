@@ -7,7 +7,7 @@ const AppliedJobTable = () => {
     const { allAppliedJobs } = useSelector(store => store.job);
 
     return (
-        <div>
+        <div className='w-full'>
             <Table>
                 <TableCaption>A list of applied jobs</TableCaption>
                 <TableHeader>
