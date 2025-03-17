@@ -9,8 +9,11 @@ import { COMPANY_API_END_POINT } from '@/util/constant'
 import { toast } from 'sonner'
 import { useDispatch } from 'react-redux'
 import { setSingleCompany } from '@/redux/companySlice'
+import useDocumentTitle from '@/hooks/useDocumentTitle'
 
 const CompanyCreate = () => {
+
+    useDocumentTitle("Company Create")
     const navigate = useNavigate()
     const dispatch = useDispatch();
 

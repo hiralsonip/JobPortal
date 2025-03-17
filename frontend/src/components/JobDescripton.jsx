@@ -7,9 +7,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { APPLICATION_API_END_POINT, JOB_API_END_POINT } from '@/util/constant';
 import { toast } from 'sonner';
+import useDocumentTitle from '@/hooks/useDocumentTitle';
 
 const JobDescripton = () => {
 
+    useDocumentTitle("Job Details")
     const params = useParams();
     const jobId = params.id;
     const dispatch = useDispatch();

@@ -6,8 +6,11 @@ import { APPLICATION_API_END_POINT } from '@/util/constant'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { setAllApplicants } from '@/redux/applicationSlice'
+import useDocumentTitle from '@/hooks/useDocumentTitle'
 
 const Applicants = () => {
+
+    useDocumentTitle("Applicants")
 
     const params = useParams();
     const dispatch = useDispatch();

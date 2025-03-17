@@ -1,7 +1,10 @@
+import useDocumentTitle from '@/hooks/useDocumentTitle';
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const NotFound = () => {
+
+    useDocumentTitle("Not Found")
     const navigate = useNavigate();
 
     return (

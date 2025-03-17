@@ -7,9 +7,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import AdminJobsTable from './AdminJobsTable'
 import useGetAllAdminJobs from '@/hooks/useGetAllAdminJobs'
 import { setSearchJobByName } from '@/redux/jobSlice'
+import useDocumentTitle from '@/hooks/useDocumentTitle'
 
 const AdminJobs = () => {
 
+    useDocumentTitle("Admin Jobs")
     useGetAllAdminJobs();
     const [input, setInput] = useState("")
     const navigate = useNavigate();

@@ -6,9 +6,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setAllJobs, setSearchQuery } from '@/redux/jobSlice'
 import useGetAllJobs from '@/hooks/useGetAllJobs'
 import { motion } from 'framer-motion'
+import useDocumentTitle from '@/hooks/useDocumentTitle'
 
 const Jobs = () => {
 
+    useDocumentTitle("Jobs");
     useGetAllJobs();
     const { allJobs, searchQuery } = useSelector(store => store.job);
     const [filterJobs, setFilterJobs] = useState(allJobs);

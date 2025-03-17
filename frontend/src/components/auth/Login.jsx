@@ -12,8 +12,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setLoading, setUser } from '@/redux/authSlice'
 import store from '@/redux/store'
 import { Loader2 } from 'lucide-react'
+import useDocumentTitle from '@/hooks/useDocumentTitle'
 
 function Login() {
+
+    useDocumentTitle("Login");
 
     const [input, setInput] = useState({
         email: "",

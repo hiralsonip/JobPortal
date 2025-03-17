@@ -8,8 +8,11 @@ import useGetAllJobs from '@/hooks/useGetAllJobs'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { setSearchQuery } from '@/redux/jobSlice'
+import useDocumentTitle from '@/hooks/useDocumentTitle'
 
 function Home() {
+
+    useDocumentTitle("Home");
 
     const dispatch = useDispatch();
     const { searchQuery } = useSelector(store => store.job)

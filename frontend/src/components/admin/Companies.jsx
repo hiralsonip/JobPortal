@@ -7,9 +7,11 @@ import { useNavigate } from 'react-router-dom'
 import useGetAllCompanies from '@/hooks/useGetAllCompanies'
 import { useDispatch } from 'react-redux'
 import { setSearchCompanyByName } from '@/redux/companySlice'
+import useDocumentTitle from '@/hooks/useDocumentTitle'
 
 const Companies = () => {
 
+    useDocumentTitle("Companies")
     useGetAllCompanies();
     const [input, setInput] = useState("")
     const navigate = useNavigate();

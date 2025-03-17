@@ -11,8 +11,11 @@ import { toast } from 'sonner'
 import { useDispatch, useSelector } from 'react-redux'
 import { setLoading } from '@/redux/authSlice'
 import { Loader2 } from 'lucide-react'
+import useDocumentTitle from '@/hooks/useDocumentTitle'
 
 function Signup() {
+
+    useDocumentTitle("Signup");
 
     const [input, setInput] = useState({
         fullname: "",

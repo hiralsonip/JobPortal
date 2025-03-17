@@ -4,11 +4,13 @@ import Job from './Job'
 import { useDispatch, useSelector } from 'react-redux'
 import { setSearchQuery } from '@/redux/jobSlice'
 import useGetAllJobs from '@/hooks/useGetAllJobs'
+import useDocumentTitle from '@/hooks/useDocumentTitle'
 
 const jobs = [1, 2, 3, 1, 2, 3]
 
 const Browse = () => {
 
+    useDocumentTitle("Browse")
     const dispatch = useDispatch();
     useGetAllJobs();
     const { allJobs } = useSelector(store => store.job);

@@ -10,11 +10,13 @@ import axios from 'axios'
 import { JOB_API_END_POINT } from '@/util/constant'
 import { toast } from 'sonner'
 import { useNavigate } from 'react-router-dom'
+import useDocumentTitle from '@/hooks/useDocumentTitle'
 
 const companyArray = [];
 
 const PostJob = () => {
 
+    useDocumentTitle("Create Job")
     const [loading, setLoading] = useState(false);
     const [input, setInput] = useState({
         title: "",
