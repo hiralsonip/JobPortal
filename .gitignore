@@ -9,3 +9,6 @@ backend/.env
 # Ignore system files
 .DS_Store
 Thumbs.db
+
+
+Notes.txt

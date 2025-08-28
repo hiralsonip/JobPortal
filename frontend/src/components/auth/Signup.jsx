@@ -17,6 +17,7 @@ function Signup() {
 
     useDocumentTitle("Signup");
 
+    const [isValidPhone, setIsValidPhone] = useState(true);
     const [input, setInput] = useState({
         fullname: "",
         email: "",
@@ -72,6 +73,13 @@ function Signup() {
         }
     }
 
+    const checkPhoneHandler = (e) => {
+        const phone = e.target.value;
+        const regex = /^\d{10}$/;
+        setIsValidPhone(regex.test(phone));
+        console.log(regex.test(phone));
+    }
+
     useEffect(() => {
         if (user) {
             navigate("/")
@@ -110,6 +118,7 @@ function Signup() {
                             required />
                     </div>
 
+                    {/* Phone number */}
                     <div className='my-2'>
                         <Label>Phone Number<span className='text-red-700'>*</span></Label>
                         <Input
@@ -118,9 +127,13 @@ function Signup() {
                             value={input.phoneNumber}
                             name="phoneNumber"
                             onChange={changeEventHandler}
+                            onBlur={checkPhoneHandler}
+                            className={isValidPhone ? "" : "border-b-red-700"}
                             required />
+                        {isValidPhone ? "" : <span className='text-sm text-red-700'>Invalid phone number</span>}
                     </div>
 
+                    {/* Password */}
                     <div className='my-2'>
                         <Label>Password</Label><span className='text-red-700'>*</span>
                         <Input
@@ -133,6 +146,7 @@ function Signup() {
                         />
                     </div>
 
+                    {/* Confirm password */}
                     <div className='my-2'>
                         <Label>Confirm Password</Label><span className='text-red-700'>*</span>
                         <Input type="password" placeholder="Confirm Password" />

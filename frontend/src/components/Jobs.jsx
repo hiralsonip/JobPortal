@@ -12,7 +12,7 @@ const Jobs = () => {
 
     useDocumentTitle("Jobs");
     useGetAllJobs();
-    const { allJobs, searchQuery } = useSelector(store => store.job);
+    const { allJobs, searchQuery, loading } = useSelector(store => store.job);
     const [filterJobs, setFilterJobs] = useState(allJobs);
     const dispatch = useDispatch();
 
@@ -38,7 +38,13 @@ const Jobs = () => {
         return () => {
             dispatch(setSearchQuery(""));
         }
-    }, [])
+    }, [dispatch]);
+
+    if (loading) {
+        return (
+            <div>Loading ...</div>
+        )
+    }
 
     return (
         <div>

@@ -53,8 +53,8 @@ const Navbar = () => {
                                     {/* Not display this for small screen  */}
                                     {/* See all jobs button is in LatestJob component */}
                                     <li className='hidden sm:block'><Link to="/">Home</Link></li>
-                                    <li className={!user && 'hidden sm:block'}><Link to="/jobs">Jobs</Link> </li>
-                                    <li className={!user && 'hidden sm:block'}><Link to="/browse">Browse</Link> </li>
+                                    <li className={user ? undefined : 'hidden sm:block'}><Link to="/jobs">Jobs</Link> </li>
+                                    <li className={user ? undefined : 'hidden sm:block'}><Link to="/browse">Browse</Link> </li>
                                 </>)
                         }
                     </ul>

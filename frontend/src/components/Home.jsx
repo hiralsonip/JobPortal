@@ -15,12 +15,10 @@ function Home() {
     useDocumentTitle("Home");
 
     const dispatch = useDispatch();
-    const { searchQuery } = useSelector(store => store.job)
-    useEffect(() => {
-        dispatch(setSearchQuery(''))
-    }, [dispatch]);
-
-    useGetAllJobs();
+    const { searchQuery, loading } = useSelector(store => store.job)
+    // useEffect(() => {
+    //     dispatch(setSearchQuery(''))
+    // }, [dispatch]);
 
     const { user } = useSelector(store => store.auth);
     const navigate = useNavigate();
@@ -30,6 +28,12 @@ function Home() {
             navigate("/admin/companies");
         }
     }, []);
+
+    useGetAllJobs();
+
+    if (loading) {
+        return <div>Loading ...</div>
+    }
 
     return (
         <div>
