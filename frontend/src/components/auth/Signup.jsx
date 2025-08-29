@@ -12,12 +12,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setLoading } from '@/redux/authSlice'
 import { Loader2 } from 'lucide-react'
 import useDocumentTitle from '@/hooks/useDocumentTitle'
+import { parsePhoneNumberFromString, AsYouType } from 'libphonenumber-js'
 
 function Signup() {
 
     useDocumentTitle("Signup");
 
+    const phoneNumberFormatter = new AsYouType('CA');
     const [isValidPhone, setIsValidPhone] = useState(true);
+    const [errorText, setErrorText] = useState("");
     const [input, setInput] = useState({
         fullname: "",
         email: "",
@@ -32,8 +35,15 @@ function Signup() {
     const dispatch = useDispatch();
 
     const changeEventHandler = (e) => {
-        setInput({ ...input, [e.target.name]: e.target.value });
+
+        if (e.target.name === "phoneNumber") {
+            const formattedNumber = phoneNumberFormatter.input(e.target.value)
+            setInput({ ...input, [e.target.name]: formattedNumber })
+        } else {
+            setInput({ ...input, [e.target.name]: e.target.value });
+        }
     }
+
     const changeFileHandler = (e) => {
         setInput({ ...input, file: e.target.files?.[0] });
     }
@@ -74,10 +84,37 @@ function Signup() {
     }
 
     const checkPhoneHandler = (e) => {
-        const phone = e.target.value;
-        const regex = /^\d{10}$/;
-        setIsValidPhone(regex.test(phone));
-        console.log(regex.test(phone));
+        const phone = e.target.value.trim();
+
+        if (phone.length && !phone.startsWith("+")) {
+            setIsValidPhone(false);
+            setErrorText("Please include country code (e.g., +1)")
+            return;
+        }
+
+        // check valid phone using library
+        const phoneLib = parsePhoneNumberFromString(phone);
+
+        if (!phoneLib) {
+            setIsValidPhone(false);
+            setErrorText("Invalid number format. Check your digits and country code.")
+            return
+        }
+
+        if (!phoneLib.isPossible()) {
+            setIsValidPhone(false);
+            setErrorText("This number doesn't seem possible. Check the length and digits.")
+            return
+        }
+
+        if (!phoneLib.isValid()) {
+            setIsValidPhone(false);
+            setErrorText("This number is not valid. Make sure you typed it correctly.");
+            return;
+        }
+
+        setIsValidPhone(true);
+        setErrorText("");
     }
 
     useEffect(() => {
@@ -123,14 +160,14 @@ function Signup() {
                         <Label>Phone Number<span className='text-red-700'>*</span></Label>
                         <Input
                             type="text"
-                            placeholder="(123) 456-7890"
+                            placeholder="+1 123 456 7890"
                             value={input.phoneNumber}
                             name="phoneNumber"
                             onChange={changeEventHandler}
                             onBlur={checkPhoneHandler}
                             className={isValidPhone ? "" : "border-b-red-700"}
                             required />
-                        {isValidPhone ? "" : <span className='text-sm text-red-700'>Invalid phone number</span>}
+                        {isValidPhone ? "" : <span className='text-sm text-red-700'>{errorText}</span>}
                     </div>
 
                     {/* Password */}
