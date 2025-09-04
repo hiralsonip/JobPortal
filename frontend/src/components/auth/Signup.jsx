@@ -13,6 +13,7 @@ import { setLoading } from '@/redux/authSlice'
 import { Loader2 } from 'lucide-react'
 import useDocumentTitle from '@/hooks/useDocumentTitle'
 import { parsePhoneNumberFromString, AsYouType } from 'libphonenumber-js'
+import zxcvbn from 'zxcvbn'
 
 function Signup() {
 
@@ -21,6 +22,8 @@ function Signup() {
     const phoneNumberFormatter = new AsYouType('CA');
     const [isValidPhone, setIsValidPhone] = useState(true);
     const [errorText, setErrorText] = useState("");
+    const [password, setPassword] = useState("");
+    const [score, setScore] = useState(0);
     const [input, setInput] = useState({
         fullname: "",
         email: "",
@@ -35,6 +38,15 @@ function Signup() {
     const dispatch = useDispatch();
 
     const changeEventHandler = (e) => {
+
+        // check strength of the password
+        if (e.target.name === "password") {
+            const checkPassword = e.target.value;
+            setPassword(checkPassword);
+            const result = zxcvbn(checkPassword);
+            setScore(result.score);
+            console.log(checkPassword, result.score, result)
+        }
 
         if (e.target.name === "phoneNumber") {
             const formattedNumber = phoneNumberFormatter.input(e.target.value)
@@ -61,10 +73,6 @@ function Signup() {
         if (input.file) {
             formData.append("file", input.file);
         }
-
-        for (let pair of formData.entries()) {
-        }
-
 
         try {
             dispatch(setLoading(true));
@@ -117,6 +125,14 @@ function Signup() {
         setErrorText("");
     }
 
+    const getStrengthColor = [
+        "bg-red-500",
+        "bg-orange-500",
+        "bg-yellow-500",
+        "bg-lime-500",
+        "bg-green-500"
+    ]
+
     useEffect(() => {
         if (user) {
             navigate("/")
@@ -131,6 +147,7 @@ function Signup() {
                 <form onSubmit={submitHandler} className='max-w-5xl w-full md:w-1/2 lg:w-1/3 sm:w-full mx-5 border border-gray-200 rounded-md p-4 my-10'>
                     <h1 className='font-bold text-xl mb-5'>Sign Up</h1>
 
+                    {/* Full Name */}
                     <div className='my-2'>
                         <Label>Full Name<span className='text-red-700'>*</span></Label>
                         <Input
@@ -182,6 +199,14 @@ function Signup() {
                             required
                         />
                     </div>
+                    {
+                        (password.length > 0 &&
+                            <div className='h-2 w-full rounded bg-gray-200'>
+                                <div className={`h-full rounded ${getStrengthColor[score]} transition-all duration-300`}
+                                    style={{ width: `${(score + 1) * 20}%` }}
+                                />
+                            </div>)
+                    }
 
                     {/* Confirm password */}
                     <div className='my-2'>
@@ -189,6 +214,7 @@ function Signup() {
                         <Input type="password" placeholder="Confirm Password" />
                     </div>
 
+                    {/* Student - Recruiter Radio button */}
                     <div className='flex items-center justify-between'>
                         <RadioGroup className="flex flex-col sm:flex-row items-center gap-4 my-5">
                             <div className="flex items-center space-x-2">
@@ -217,6 +243,7 @@ function Signup() {
                         </RadioGroup>
                     </div>
 
+                    {/* Profile picture */}
                     <div className='flex items-center gap-2'>
                         <Label>Profile</Label>
                         <Input
@@ -235,8 +262,8 @@ function Signup() {
                     }
 
                     <span className='text-sm'>Already have an account? <Link to='/login' className='text-blue-700'>Login</Link></span>
-                </form>
-            </div>
+                </form >
+            </div >
 
         </>
     )
