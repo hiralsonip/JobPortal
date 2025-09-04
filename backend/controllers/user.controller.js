@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken"
 import getDataUri from "../utils/dataUri.js";
 import cloudinary from "../utils/couldinary.js";
 import zxcvbn from "zxcvbn";
+import parsePhoneNumberFromString from "libphonenumber-js";
 
 // Register
 export const register = async (req, res) => {
@@ -27,6 +28,16 @@ export const register = async (req, res) => {
             })
         }
 
+        // checks for phone number
+        const phoneLib = parsePhoneNumberFromString(phonenumber);
+        if (!phoneLib || !phoneLib.isValid()) {
+            return res.status(400).json({
+                message: "Invalid phone number",
+                success: false,
+            })
+        }
+        const normalizedPhoneNumber = phoneLib.number;
+
         // Run zxcvbn check
         const result = zxcvbn(password);
         // result.score is 0 (weak) to 4 (strong)
@@ -42,7 +53,7 @@ export const register = async (req, res) => {
         await User.create({
             fullname,
             email,
-            phonenumber,
+            phonenumber: normalizedPhoneNumber,
             password: hashedPassword,
             role,
             profile: {
