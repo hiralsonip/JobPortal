@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Navbar from '../shared/Navbar'
 import { Input } from '../ui/input'
 import { Label } from '../ui/label'
-import { RadioGroup, RadioGroupItem } from '../ui/radio-group'
+import { RadioGroup } from '../ui/radio-group'
 import { Button } from '../ui/button'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
@@ -19,7 +19,7 @@ function Signup() {
 
     useDocumentTitle("Signup");
 
-    const phoneNumberFormatter = new AsYouType('CA');
+
     const [isValidPhone, setIsValidPhone] = useState(true);
     const [phoneErrorText, setPhoneErrorText] = useState("");
     const [passwordErrorText, setPasswordErrorText] = useState("")
@@ -46,11 +46,11 @@ function Signup() {
             setPassword(checkPassword);
             const result = zxcvbn(checkPassword);
             setScore(result.score);
-            setPasswordErrorText(result.feedback.suggestions)
-            console.log(checkPassword, result.score, result)
+            setPasswordErrorText(result.feedback.suggestions.join(" "))
         }
 
         if (e.target.name === "phoneNumber") {
+            const phoneNumberFormatter = new AsYouType('CA');
             const formattedNumber = phoneNumberFormatter.input(e.target.value)
             setInput({ ...input, [e.target.name]: formattedNumber })
         } else {
@@ -87,7 +87,7 @@ function Signup() {
             }
         } catch (error) {
             console.log(error);
-            toast.error(error.response.data.message);
+            toast.error(error.response?.data?.message || "Something went wrong");
         } finally {
             dispatch(setLoading(false));
         }
@@ -139,7 +139,7 @@ function Signup() {
         if (user) {
             navigate("/")
         }
-    }, []);
+    }, [user, navigate]);
 
     return (
         <>
@@ -250,7 +250,7 @@ function Signup() {
                     <div className='flex items-center gap-2'>
                         <Label>Profile</Label>
                         <Input
-                            accept="image/"
+                            accept="image/*"
                             type="file"
                             className="cursor-pointer"
                             name="file"
