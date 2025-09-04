@@ -21,7 +21,8 @@ function Signup() {
 
     const phoneNumberFormatter = new AsYouType('CA');
     const [isValidPhone, setIsValidPhone] = useState(true);
-    const [errorText, setErrorText] = useState("");
+    const [phoneErrorText, setPhoneErrorText] = useState("");
+    const [passwordErrorText, setPasswordErrorText] = useState("")
     const [password, setPassword] = useState("");
     const [score, setScore] = useState(0);
     const [input, setInput] = useState({
@@ -45,6 +46,7 @@ function Signup() {
             setPassword(checkPassword);
             const result = zxcvbn(checkPassword);
             setScore(result.score);
+            setPasswordErrorText(result.feedback.suggestions)
             console.log(checkPassword, result.score, result)
         }
 
@@ -96,7 +98,7 @@ function Signup() {
 
         if (phone.length && !phone.startsWith("+")) {
             setIsValidPhone(false);
-            setErrorText("Please include country code (e.g., +1)")
+            setPhoneErrorText("Please include country code (e.g., +1)")
             return;
         }
 
@@ -105,24 +107,24 @@ function Signup() {
 
         if (!phoneLib) {
             setIsValidPhone(false);
-            setErrorText("Invalid number format. Check your digits and country code.")
+            setPhoneErrorText("Invalid number format. Check your digits and country code.")
             return
         }
 
         if (!phoneLib.isPossible()) {
             setIsValidPhone(false);
-            setErrorText("This number doesn't seem possible. Check the length and digits.")
+            setPhoneErrorText("This number doesn't seem possible. Check the length and digits.")
             return
         }
 
         if (!phoneLib.isValid()) {
             setIsValidPhone(false);
-            setErrorText("This number is not valid. Make sure you typed it correctly.");
+            setPhoneErrorText("This number is not valid. Make sure you typed it correctly.");
             return;
         }
 
         setIsValidPhone(true);
-        setErrorText("");
+        setPhoneErrorText("");
     }
 
     const getStrengthColor = [
@@ -184,7 +186,7 @@ function Signup() {
                             onBlur={checkPhoneHandler}
                             className={isValidPhone ? "" : "border-b-red-700"}
                             required />
-                        {isValidPhone ? "" : <span className='text-sm text-red-700'>{errorText}</span>}
+                        {isValidPhone ? "" : <span className='text-sm text-red-700'>{phoneErrorText}</span>}
                     </div>
 
                     {/* Password */}
@@ -198,6 +200,7 @@ function Signup() {
                             onChange={changeEventHandler}
                             required
                         />
+                        {passwordErrorText && <span className='text-sm text-red-700'>{passwordErrorText}</span>}
                     </div>
                     {
                         (password.length > 0 &&
@@ -262,8 +265,8 @@ function Signup() {
                     }
 
                     <span className='text-sm'>Already have an account? <Link to='/login' className='text-blue-700'>Login</Link></span>
-                </form >
-            </div >
+                </form>
+            </div>
 
         </>
     )

@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 import getDataUri from "../utils/dataUri.js";
 import cloudinary from "../utils/couldinary.js";
+import zxcvbn from "zxcvbn";
 
 // Register
 export const register = async (req, res) => {
@@ -23,6 +24,17 @@ export const register = async (req, res) => {
             return res.status(400).json({
                 message: "User is already exists",
                 success: false
+            })
+        }
+
+        // Run zxcvbn check
+        const result = zxcvbn(password);
+        // result.score is 0 (weak) to 4 (strong)
+        if (result.score < 2) {
+            return res.status(400).json({
+                message: "Password is too weak",
+                suggestions: result.feedback.suggestions,
+                success: false,
             })
         }
         const hashedPassword = await bcrypt.hash(password, 10);
